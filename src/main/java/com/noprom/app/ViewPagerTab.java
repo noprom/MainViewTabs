@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class ViewPagerTab extends Activity implements View.OnClickListener {
 
     private ViewPager mViewPager;
     private PagerAdapter mAdapter;
@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.viewpager_tab);
 
         initView();
 
