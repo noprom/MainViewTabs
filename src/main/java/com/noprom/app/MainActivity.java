@@ -1,9 +1,9 @@
 package com.noprom.app;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private ViewPager mViewPager;
     private PagerAdapter mAdapter;
@@ -38,7 +38,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
+        initEvents();
     }
+
 
     private void initView() {
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
@@ -91,5 +94,72 @@ public class MainActivity extends ActionBarActivity {
         mViewPager.setAdapter(mAdapter);
     }
 
+    private void initEvents() {
+        mTabWeixin.setOnClickListener(this);
+        mTabFriend.setOnClickListener(this);
+        mTabAddress.setOnClickListener(this);
+        mTabSetting.setOnClickListener(this);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                int currentItem = mViewPager.getCurrentItem();
+                resetImg();
+                switch (currentItem) {
+                    case 0:
+                        mWeixinImg.setImageResource(R.drawable.tab_weixin_pressed);
+                        break;
+                    case 1:
+                        mFriendImg.setImageResource(R.drawable.tab_find_frd_pressed);
+
+                        break;
+                    case 2:
+                        mAddressImg.setImageResource(R.drawable.tab_address_pressed);
+                        break;
+                    case 3:
+                        mSettingImg.setImageResource(R.drawable.tab_settings_pressed);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        resetImg();
+        switch (v.getId()) {
+            case R.id.id_tab_weixin:
+                mViewPager.setCurrentItem(0);
+                mWeixinImg.setImageResource(R.drawable.tab_weixin_pressed);
+                break;
+            case R.id.id_tab_frd:
+                mViewPager.setCurrentItem(1);
+                mFriendImg.setImageResource(R.drawable.tab_find_frd_pressed);
+                break;
+            case R.id.id_tab_address:
+                mViewPager.setCurrentItem(2);
+                mAddressImg.setImageResource(R.drawable.tab_address_pressed);
+                break;
+            case R.id.id_tab_settings:
+                mViewPager.setCurrentItem(3);
+                mSettingImg.setImageResource(R.drawable.tab_settings_pressed);
+                break;
+        }
+    }
+
+    private void resetImg() {
+        mWeixinImg.setImageResource(R.drawable.tab_weixin_normal);
+        mFriendImg.setImageResource(R.drawable.tab_find_frd_normal);
+        mAddressImg.setImageResource(R.drawable.tab_address_normal);
+        mSettingImg.setImageResource(R.drawable.tab_settings_normal);
+    }
 }
